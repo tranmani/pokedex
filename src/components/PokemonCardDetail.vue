@@ -116,7 +116,6 @@ p {
 }
 .card {
   width: 40%;
-  max-width: 50%;
   padding: 25px;
 }
 .btn-row {
@@ -124,5 +123,29 @@ p {
 }
 .btn {
   width: 100%;
+}
+
+@media only screen and (min-width: 1921px) {
+  .card {
+    width: 30%;
+  }
+}
+
+@media only screen and (max-width: 1920px) {
+  .card {
+    width: 35%;
+  }
+}
+
+@media only screen and (max-width: 1200px) {
+  .card {
+    width: 60%;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .card {
+    width: 85%;
+  }
 }
 </style>
