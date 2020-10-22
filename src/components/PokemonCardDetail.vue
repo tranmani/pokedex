@@ -1,6 +1,6 @@
 <template>
   <q-dialog v-model="card">
-    <q-card class="card">
+    <q-card class="card" :class="bgGrad">
       <div class="col">
         <div class="row justify-center">
           <q-img :src="currentPokemon.picture" style="width: 85%" class="col" />
@@ -79,6 +79,27 @@ export default {
   props: {},
   computed: {
     ...mapGetters("pokemon", ["currentPokemon", "card"]),
+    bgGrad() {
+      const random = Math.floor(Math.random() * 8) + 1;
+      switch (random) {
+        case 1:
+          return "bg-grad-1";
+        case 2:
+          return "bg-grad-2";
+        case 3:
+          return "bg-grad-3";
+        case 4:
+          return "bg-grad-4";
+        case 5:
+          return "bg-grad-5";
+        case 6:
+          return "bg-grad-6";
+        case 7:
+          return "bg-grad-7";
+        case 8:
+          return "bg-grad-8";
+      }
+    },
   },
   data() {
     return {};
