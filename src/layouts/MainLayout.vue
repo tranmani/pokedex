@@ -9,7 +9,7 @@
           flat
           dense
           v-ripple.early
-          icon="how_to_reg"
+          icon="home"
           class="q-mr-md"
           to="/"
           >Home</q-btn
@@ -19,7 +19,7 @@
           flat
           dense
           v-ripple.early
-          icon="help_outline"
+          icon="favorite"
           class="q-mr-xl"
           to="/favorite"
           >Favorites</q-btn

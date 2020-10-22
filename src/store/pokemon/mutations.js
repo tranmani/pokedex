@@ -5,6 +5,15 @@ const favorites = []
 export function updateCurrentOffset(state, payload) {
   state.currentOffset = payload
 }
+export function updateCard(state, payload) {
+  state.card = !state.card
+}
+export function updateCurrentPokemon(state, payload) {
+  state.currentPokemon = payload
+}
+export function updateCurrentPokemonFavorite(state, payload) {
+  state.currentPokemon.favorited = payload
+}
 export function addFavorite(state, name) {
   let favoritesTemp = state.favorites
   favoritesTemp.push(name)

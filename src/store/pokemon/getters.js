@@ -11,3 +11,9 @@ export function currentOffset(state) {
 export function favorites(state) {
   return [...state.favorites]
 }
+export function card(state) {
+  return state.card
+}
+export function currentPokemon(state) {
+  return state.currentPokemon
+}
