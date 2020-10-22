@@ -1,10 +1,12 @@
 <template>
   <div>
-    <q-card class="card">
-      <img :src="picture" @click="openCard" />
+    <q-card color="gray" class="card hvr-underline-from-center">
+      <img :src="picture" @click="openCard" class="img" />
       <q-card-section>
         <div class="row justify-between items-center">
-          <h5 class="float-left">{{ name }}</h5>
+          <h5 class="float-left" @click="openCard">
+            {{ name }}
+          </h5>
           <q-btn
             v-if="!favorited"
             flat
@@ -118,10 +120,27 @@ export default {
 <style scoped>
 h5 {
   margin: 0px;
+  cursor: pointer;
 }
 .card {
   width: 100%;
-  max-width: 300px;
+  max-width: 280px;
   padding: 5px;
+  transition: 0.25s;
+}
+.card:hover {
+  box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  transition-timing-function: ease-out;
+  transition: 0.25s;
+}
+.img {
+  cursor: pointer;
+  transition: 0.2s;
+}
+.img:hover {
+  transform: scale(1.25);
+  transition-timing-function: ease-out;
+  transition-timing-function: cubic-bezier(0, 0, 0.58, 1);
+  transition: 0.35s;
 }
 </style>

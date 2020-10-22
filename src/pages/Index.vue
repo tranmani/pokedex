@@ -1,9 +1,9 @@
 <template>
-  <q-page class="flex justify-center q-pa-md items-start">
-    <div v-if="!loaded" class="container row q-gutter-md">
+  <q-page class="flex justify-center q-pt-xl q-pb-xl items-start">
+    <div v-if="!loaded" class="container row q-gutter-xl">
       <PokemonCardSkeleton v-for="index in 20" :key="index" />
     </div>
-    <div v-if="loaded" class="container row q-gutter-md">
+    <div v-if="loaded" class="container row q-gutter-xl">
       <PokemonCard
         v-for="pokemon in pokemons"
         :key="pokemon.id"

@@ -2,7 +2,9 @@
   <q-dialog v-model="card">
     <q-card class="card">
       <div class="col">
-        <q-img :src="currentPokemon.picture" style="width: 100%" />
+        <div class="row justify-center">
+          <q-img :src="currentPokemon.picture" style="width: 85%" class="col" />
+        </div>
         <div class="row items-center justify-center">
           <h3>{{ currentPokemon.name }} #{{ currentPokemon.id }}</h3>
           <q-img :src="currentPokemon.sprite" style="width: 15%" />
@@ -10,18 +12,18 @@
       </div>
       <div class="row">
         <div class="col">
-          <h4 class="row">Type</h4>
+          <h5 class="row">Type</h5>
           <q-chip
             v-for="t in currentPokemon.type"
             size="md"
             :key="t"
-            :class="chipColor"
+            :class="t.toLowerCase()"
           >
             {{ t }}
           </q-chip>
         </div>
         <div class="col">
-          <h4 class="row">Ability</h4>
+          <h5 class="row">Ability</h5>
           <ul>
             <li v-for="a in currentPokemon.ability" :key="a">
               <p>{{ a }}</p>
@@ -32,11 +34,11 @@
 
       <div class="row">
         <div class="col">
-          <h4 class="row">Height</h4>
+          <h5 class="row">Height</h5>
           <p class="row">{{ currentPokemon.height }}</p>
         </div>
         <div class="col">
-          <h4 class="row">Weight</h4>
+          <h5 class="row">Weight</h5>
           <p class="row">{{ currentPokemon.weight }}</p>
         </div>
       </div>
@@ -75,30 +77,6 @@ export default {
   props: {},
   computed: {
     ...mapGetters("pokemon", ["currentPokemon", "card"]),
-    chipColor() {
-      this.currentPokemon.type.forEach((element) => {
-        if (element.toLowerCase == "normal".toLowerCase) return "normal";
-        else if (element.toLowerCase.toLowerCase == "fire".toLowerCase)
-          return "fire";
-        else if (element.toLowerCase == "fighting".toLowerCase)
-          return "fighting";
-        else if (element.toLowerCase == "water".toLowerCase) return "water";
-        else if (element.toLowerCase == "flying".toLowerCase) return "flying";
-        else if (element.toLowerCase == "grass".toLowerCase) return "grass";
-        else if (element.toLowerCase == "poison".toLowerCase) return "poison";
-        else if (element.toLowerCase == "electric".toLowerCase)
-          return "electric";
-        else if (element.toLowerCase == "ground".toLowerCase) return "ground";
-        else if (element.toLowerCase == "psychic".toLowerCase) return "psychic";
-        else if (element.toLowerCase == "rock".toLowerCase) return "rock";
-        else if (element.toLowerCase == "ice".toLowerCase) return "ice";
-        else if (element.toLowerCase == "bug".toLowerCase) return "bug";
-        else if (element.toLowerCase == "dragon".toLowerCase) return "dragon";
-        else if (element.toLowerCase == "ghost".toLowerCase) return "ghost";
-        else if (element.toLowerCase == "dark".toLowerCase) return "dark";
-        else if (element.toLowerCase == "fairy".toLowerCase) return "fairy";
-      });
-    },
   },
   data() {
     return {};
@@ -125,7 +103,7 @@ export default {
 </script>
 
 <style scoped>
-h4 {
+h5 {
   margin: 0px;
   text-align: center;
 }
