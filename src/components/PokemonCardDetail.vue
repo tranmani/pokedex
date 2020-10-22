@@ -73,6 +73,5 @@ h5 {
 .card {
   width: 100%;
   max-width: 300px;
-  padding: 5px;
 }
 </style>

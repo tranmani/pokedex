@@ -1,5 +1,9 @@
 export function pokemons(state) {
-  return [...state.pokemons]
+  const sortedPokemons = [...state.pokemons].sort(function (a, b) {
+    return a.id - b.id;
+  });
+
+  return sortedPokemons
 }
 export function currentOffset(state) {
   return state.currentOffset

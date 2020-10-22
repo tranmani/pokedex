@@ -23,3 +23,6 @@ export function deleteFavorite(state, name) {
 export function addPokemon(state, payload) {
   state.pokemons.push(payload)
 }
+export function emptyPokemon(state) {
+  state.pokemons = []
+}

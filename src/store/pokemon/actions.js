@@ -10,3 +10,6 @@ export function deleteFavorite({ commit }, payload) {
 export function addPokemon({ commit }, payload) {
   commit('addPokemon', payload)
 }
+export function emptyPokemon({ commit }) {
+  commit('emptyPokemon')
+}

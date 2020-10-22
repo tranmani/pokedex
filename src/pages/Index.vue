@@ -6,7 +6,7 @@
     <div v-if="loaded" class="container row q-gutter-md justify-center">
       <PokemonCard
         v-for="pokemon in pokemons"
-        :key="pokemon.name"
+        :key="pokemon.id"
         v-bind="pokemon"
       />
     </div>
@@ -35,41 +35,7 @@ export default {
     ...mapGetters("pokemon", ["pokemons", "currentOffset", "favorites"]),
   },
   created() {
-    Page.nextPrevious(this.currentOffset).then((response) => {
-      let id = 1;
-      response.data.results.forEach((element) => {
-        const types = [];
-        const abilities = [];
-        let favorited = false;
-        Pokemon.pokemonDetail(element.url).then((response2) => {
-          response2.data.types.forEach((element) => {
-            types.push(element.type.name);
-          });
-          response2.data.abilities.forEach((element) => {
-            abilities.push(element.ability.name);
-          });
-
-          this.favorites.forEach((element) => {
-            if (element == response2.data.name) {
-              favorited = true;
-            }
-          });
-
-          this.addPokemon({
-            name: response2.data.name,
-            type: types,
-            favorited: favorited,
-            picture: `https://pokeres.bastionbot.org/images/pokemon/${response2.data.id}.png`,
-            ability: abilities,
-            sprite: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${response2.data.id}.png`,
-          });
-          if (response2.data.id == response.data.results.length) {
-            this.loaded = true;
-          }
-        });
-      });
-      this.updateCurrentOffset(50);
-    });
+    this.getPokemon(this.currentOffset);
   },
   methods: {
     ...mapActions("pokemon", [
@@ -77,7 +43,50 @@ export default {
       "addFavorite",
       "deleteFavorite",
       "addPokemon",
+      "emptyPokemon",
     ]),
+    getPokemon(offSet, next) {
+      Page.nextPrevious(offSet).then((response) => {
+        this.emptyPokemon();
+        let id = 1;
+        response.data.results.forEach((element) => {
+          const types = [];
+          const abilities = [];
+          let favorited = false;
+          Pokemon.pokemonDetailByLink(element.url).then((response2) => {
+            response2.data.types.forEach((element) => {
+              types.push(element.type.name);
+            });
+            response2.data.abilities.forEach((element) => {
+              abilities.push(element.ability.name);
+            });
+
+            this.favorites.forEach((element) => {
+              if (element == response2.data.name) {
+                favorited = true;
+              }
+            });
+
+            this.addPokemon({
+              id: response2.data.id,
+              name: response2.data.name,
+              type: types,
+              favorited: favorited,
+              picture: `https://pokeres.bastionbot.org/images/pokemon/${response2.data.id}.png`,
+              ability: abilities,
+              height: response2.data.height,
+              sprite: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${response2.data.id}.png`,
+            });
+            if (response2.data.id == response.data.results.length) {
+              console.log(this.pokemons);
+              this.loaded = true;
+            }
+          });
+        });
+        if (next) this.updateCurrentOffset((offSet += 50));
+        else this.updateCurrentOffset((offSet -= 50));
+      });
+    },
   },
 };
 </script>

@@ -4,7 +4,26 @@
       <q-toolbar>
         <q-toolbar-title> Pokédex </q-toolbar-title>
 
-        <div>Quasar v{{ $q.version }}</div>
+        <q-btn
+          style="color: white"
+          flat
+          dense
+          v-ripple.early
+          icon="how_to_reg"
+          class="q-mr-md"
+          to="/"
+          >Home</q-btn
+        >
+        <q-btn
+          style="color: white"
+          flat
+          dense
+          v-ripple.early
+          icon="help_outline"
+          class="q-mr-xl"
+          to="/favorite"
+          >Favorites</q-btn
+        >
       </q-toolbar>
     </q-header>
 

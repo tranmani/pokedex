@@ -1,12 +1,18 @@
 import AxiosClient from './AxiosClient';
 
-const endpoint = 'pokemon/';
+const endpoint = 'https://pokeapi.co/api/v2/pokemon/';
 
 export default {
-    pokemonDetail(link) {
+    pokemonDetailByLink(link) {
         return AxiosClient({
             method: 'get',
             url: `${link}`
+        });
+    },
+    pokemonDetailByName(name) {
+        return AxiosClient({
+            method: 'get',
+            url: `${endpoint}${name}`
         });
     }
 };
