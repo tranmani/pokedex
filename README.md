@@ -1,4 +1,4 @@
-# Pokedex
+# WIP - Pokedex
 
 Just another Pokedex using Quasar Framework with API from PokéAPI and picture from bastionbot.org
 
