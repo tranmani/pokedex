@@ -1,7 +1,12 @@
 <template>
   <div>
-    <q-card color="gray" class="card hvr-underline-from-center">
-      <img :src="picture" @click="openCard" class="img" />
+    <q-card color="gray" class="card">
+      <q-img
+        :src="picture"
+        @click="openCard"
+        class="img"
+        placeholder-src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+      />
       <q-card-section>
         <div class="row justify-between items-center">
           <h5 class="float-left" @click="openCard">
@@ -22,7 +27,7 @@
             round
             color="red"
             icon="favorite"
-            class="float-right"
+            class="float-right btn-favorite"
             @click="removeFavorite"
           />
         </div>
@@ -123,8 +128,7 @@ h5 {
   cursor: pointer;
 }
 .card {
-  width: 100%;
-  max-width: 280px;
+  width: 280px;
   padding: 5px;
   transition: 0.25s;
 }

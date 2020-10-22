@@ -1,20 +1,19 @@
 <template>
-  <q-page class="flex justify-center q-pt-xl q-pb-xl items-start">
-    <div v-if="!loaded" class="container row q-gutter-xl">
-      <PokemonCardSkeleton v-for="index in 20" :key="index" />
-    </div>
-    <div v-if="noFavorite" class="absolute-center">
-      <h3>There is no favorite pokemon yet, try to capture some ;)</h3>
-    </div>
-    <div v-if="loaded && !noFavorite" class="container row q-gutter-md">
-      <PokemonCard
-        v-for="pokemon in pokemons"
-        :key="pokemon.id"
-        v-bind="pokemon"
-      />
-    </div>
-    <div v-if="currentPokemon">
-      <PokemonCardDetail />
+  <q-page class="row justify-center">
+    <div class="flex col-10 justify-center q-pt-xl q-pb-xl items-start">
+      <div v-if="!loaded" class="container justify-center row q-gutter-xl">
+        <PokemonCardSkeleton v-for="index in 20" :key="index" />
+      </div>
+      <div v-if="loaded" class="container justify-center row q-gutter-xl">
+        <PokemonCard
+          v-for="pokemon in pokemons"
+          :key="pokemon.id"
+          v-bind="pokemon"
+        />
+      </div>
+      <div v-if="currentPokemon">
+        <PokemonCardDetail />
+      </div>
     </div>
   </q-page>
 </template>
@@ -83,7 +82,9 @@ export default {
 
           this.addPokemon({
             id: response.data.id,
-            name: response.data.name,
+            name:
+              response.data.name.charAt(0).toUpperCase() +
+              response.data.name.slice(1),
             type: types,
             favorited: favorited,
             picture: `https://pokeres.bastionbot.org/images/pokemon/${response.data.id}.png`,
@@ -106,7 +107,7 @@ export default {
 
 <style scoped>
 .container {
-  max-width: 75%;
+  max-width: 100%;
 }
 h3 {
   color: rgb(90, 90, 90);

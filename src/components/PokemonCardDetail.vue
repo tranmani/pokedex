@@ -46,6 +46,7 @@
       <div class="row btn-row">
         <div class="col">
           <q-btn
+            flat
             v-if="currentPokemon.favorited"
             class="btn"
             icon="favorite"
@@ -54,6 +55,7 @@
             >Favorite</q-btn
           >
           <q-btn
+            flat
             v-if="!currentPokemon.favorited"
             class="btn"
             icon="favorite"
@@ -62,7 +64,7 @@
           >
         </div>
         <div class="col">
-          <q-btn class="btn" icon="close" @click="updateCard">Close</q-btn>
+          <q-btn flat class="btn" icon="close" @click="updateCard">Close</q-btn>
         </div>
       </div>
     </q-card>

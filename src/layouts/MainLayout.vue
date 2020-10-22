@@ -10,7 +10,7 @@
           dense
           v-ripple.early
           icon="home"
-          class="q-mr-md"
+          class="q-mr-md q-pa-xs"
           to="/"
           >Home</q-btn
         >
@@ -20,9 +20,10 @@
           dense
           v-ripple.early
           icon="favorite"
-          class="q-mr-xl"
+          class="q-mr-xl q-pa-xs"
           to="/favorite"
-          >Favorites</q-btn
+          label="Favorites"
+          ><q-badge color="red" floating>{{ favorites.length }}</q-badge></q-btn
         >
       </q-toolbar>
     </q-header>
@@ -34,11 +35,16 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   name: "MainLayout",
   components: {},
   data() {
     return {};
+  },
+  computed: {
+    ...mapGetters("pokemon", ["favorites"]),
   },
 };
 </script>

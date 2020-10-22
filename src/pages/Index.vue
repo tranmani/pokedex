@@ -1,18 +1,34 @@
 <template>
-  <q-page class="flex justify-center q-pt-xl q-pb-xl items-start">
-    <div v-if="!loaded" class="container row q-gutter-xl">
-      <PokemonCardSkeleton v-for="index in 20" :key="index" />
+  <q-page class="row justify-center">
+    <q-btn
+      flat
+      class="col-1 navi-btn"
+      size="xl"
+      icon="arrow_back_ios"
+      @click="previousPage"
+    ></q-btn>
+    <div class="flex col-10 justify-center q-pt-xl q-pb-xl items-start">
+      <div v-if="!loaded" class="container justify-center row q-gutter-xl">
+        <PokemonCardSkeleton v-for="index in 20" :key="index" />
+      </div>
+      <div v-if="loaded" class="container justify-center row q-gutter-xl">
+        <PokemonCard
+          v-for="pokemon in pokemons"
+          :key="pokemon.id"
+          v-bind="pokemon"
+        />
+      </div>
+      <div v-if="currentPokemon">
+        <PokemonCardDetail />
+      </div>
     </div>
-    <div v-if="loaded" class="container row q-gutter-xl">
-      <PokemonCard
-        v-for="pokemon in pokemons"
-        :key="pokemon.id"
-        v-bind="pokemon"
-      />
-    </div>
-    <div v-if="currentPokemon">
-      <PokemonCardDetail />
-    </div>
+    <q-btn
+      flat
+      class="col-1 navi-btn"
+      size="xl"
+      icon="arrow_forward_ios"
+      @click="nextPage"
+    ></q-btn>
   </q-page>
 </template>
 
@@ -44,8 +60,13 @@ export default {
       "currentPokemon",
     ]),
   },
+  watch: {
+    // currentOffset: function (newState, oldState) {
+    //   this.getPokemon(this.currentOffset, "undefined");
+    // },
+  },
   created() {
-    this.getPokemon(this.currentOffset, "undefined");
+    this.getPokemon();
   },
   methods: {
     ...mapActions("pokemon", [
@@ -55,9 +76,15 @@ export default {
       "addPokemon",
       "emptyPokemon",
     ]),
-    getPokemon(offSet, next) {
-      Page.nextPrevious(offSet).then((response) => {
-        this.emptyPokemon();
+    getPokemon(next) {
+      this.emptyPokemon();
+
+      if (next == "next") this.updateCurrentOffset(this.currentOffset + 50);
+      else if (next == "previous")
+        this.updateCurrentOffset(this.currentOffset - 50);
+      else this.updateCurrentOffset(this.currentOffset);
+
+      Page.nextPrevious(this.currentOffset).then((response) => {
         let id = 1;
         response.data.results.forEach((element) => {
           const types = [];
@@ -98,15 +125,19 @@ export default {
               weight: response2.data.weight,
               sprite: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${response2.data.id}.png`,
             });
-            if (response2.data.id == response.data.results.length) {
+            id++;
+            if (id == response.data.results.length) {
               this.loaded = true;
             }
           });
         });
-        if (next == "next") this.updateCurrentOffset((offSet += 50));
-        else if (next == "previous") this.updateCurrentOffset((offSet -= 50));
-        else if (next == "undefined") this.updateCurrentOffset(0);
       });
+    },
+    nextPage() {
+      this.getPokemon("next");
+    },
+    previousPage() {
+      this.getPokemon("previous");
     },
   },
 };
@@ -114,6 +145,11 @@ export default {
 
 <style scoped>
 .container {
-  max-width: 75%;
+  max-width: 100%;
+}
+.navi-btn {
+  height: calc(100vh - 50px);
+  position: sticky;
+  top: 50px;
 }
 </style>

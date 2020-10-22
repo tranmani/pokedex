@@ -1,6 +1,6 @@
 <template>
   <q-card flat class="card">
-    <q-skeleton height="270px" square />
+    <q-skeleton height="280px" square />
 
     <q-card-section>
       <div class="row justify-between items-center">
@@ -23,7 +23,6 @@ export default {
 
 <style scoped>
 .card {
-  width: 100%;
-  max-width: 300px;
+  width: 280px;
 }
 </style>
