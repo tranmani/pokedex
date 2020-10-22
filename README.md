@@ -1,6 +1,6 @@
-# Pokemon Pokedex (pokedex)
+# Pokedex
 
-A Quasar Framework app
+Just another Pokedex using Quasar Framework with API from PokéAPI and picture from bastionbot.org
 
 ## Install the dependencies
 ```bash
