@@ -22,3 +22,6 @@ export function updateCurrentPokemon({ commit }, payload) {
 export function updateCurrentPokemonFavorite({ commit }, payload) {
   commit('updateCurrentPokemonFavorite', payload)
 }
+export function updateMobile({ commit }, payload) {
+  commit('updateMobile', payload)
+}

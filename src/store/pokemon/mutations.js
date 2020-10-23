@@ -14,6 +14,9 @@ export function updateCurrentPokemon(state, payload) {
 export function updateCurrentPokemonFavorite(state, payload) {
   state.currentPokemon.favorited = payload
 }
+export function updateMobile(state, payload) {
+  state.mobile = payload
+}
 export function addFavorite(state, name) {
   let favoritesTemp = state.favorites
   favoritesTemp.push(name)

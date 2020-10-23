@@ -17,3 +17,6 @@ export function card(state) {
 export function currentPokemon(state) {
   return state.currentPokemon
 }
+export function mobile(state) {
+  return state.mobile
+}

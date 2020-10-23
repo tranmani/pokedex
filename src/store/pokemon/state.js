@@ -9,6 +9,7 @@ export default function () {
     currentOffset: 0,
     favorites: LocalStorage.getItem(favorites),
     card: false,
-    currentPokemon: {}
+    currentPokemon: {},
+    mobile: "14px"
   }
 }

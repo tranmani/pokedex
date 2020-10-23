@@ -8,11 +8,12 @@
       @click="previousPage"
     ></q-btn>
     <div class="flex col-10 justify-center q-pt-xl q-pb-xl items-start">
-      <div v-if="!loaded" class="container justify-center row q-gutter-xl">
-        <PokemonCardSkeleton v-for="index in 20" :key="index" />
+      <div v-if="!loaded" class="container justify-center row">
+        <PokemonCardSkeleton class="card" v-for="index in 20" :key="index" />
       </div>
-      <div v-if="loaded" class="container justify-center row q-gutter-xl">
+      <div v-if="loaded" class="container justify-center row card">
         <PokemonCard
+          class="card"
           v-for="pokemon in pokemons"
           :key="pokemon.id"
           v-bind="pokemon"

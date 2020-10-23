@@ -1,39 +1,41 @@
 <template>
-  <div>
-    <q-card color="gray" class="card">
-      <q-img
-        :src="picture"
-        @click="openCard"
-        class="img"
-        placeholder-src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
-      />
-      <q-card-section>
-        <div class="row justify-between items-center">
-          <h5 class="float-left" @click="openCard">
-            {{ name }}
-          </h5>
-          <q-btn
-            v-if="!favorited"
-            flat
-            round
-            color="gray"
-            icon="favorite"
-            class="float-right"
-            @click="favorite"
-          />
-          <q-btn
-            v-if="favorited"
-            flat
-            round
-            color="red"
-            icon="favorite"
-            class="float-right btn-favorite"
-            @click="removeFavorite"
-          />
-        </div>
-      </q-card-section>
-    </q-card>
-  </div>
+  <q-card color="gray" class="card">
+    <q-img
+      :src="picture"
+      @click="openCard"
+      class="img"
+      placeholder-src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+    />
+    <q-card-section class="card-section">
+      <div class="row justify-between items-center">
+        <h5 class="float-left" @click="openCard">
+          {{ name }}
+        </h5>
+        <q-btn
+          v-if="!favorited"
+          flat
+          :size="mobile"
+          round
+          :dense="mobile == `xs`"
+          color="gray"
+          icon="favorite"
+          class="float-right btn"
+          @click="favorite"
+        />
+        <q-btn
+          v-if="favorited"
+          flat
+          :dense="mobile == `xs`"
+          :size="mobile"
+          round
+          color="red"
+          icon="favorite"
+          class="float-right btn-favorite btn"
+          @click="removeFavorite"
+        />
+      </div>
+    </q-card-section>
+  </q-card>
 </template>
 
 <script>
@@ -84,7 +86,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters("pokemon", ["pokemons", "card"]),
+    ...mapGetters("pokemon", ["pokemons", "card", "mobile"]),
   },
   data() {
     return {};
@@ -95,6 +97,7 @@ export default {
       "deleteFavorite",
       "updateCard",
       "updateCurrentPokemon",
+      "updateMobile",
     ]),
     favorite() {
       this.addFavorite(this.name);
@@ -116,8 +119,17 @@ export default {
       });
       this.updateCard();
     },
+    onResize() {
+      if (window.innerWidth <= 600) {
+        this.updateMobile("xs");
+      } else if (window.innerWidth <= 1200) {
+        this.updateMobile("md");
+      }
+    },
   },
-  mounted() {},
+  created() {
+    window.addEventListener("resize", this.onResize);
+  },
   beforeDestroy() {},
 };
 </script>
@@ -130,6 +142,7 @@ h5 {
 .card {
   width: 280px;
   padding: 5px;
+  margin: 25px;
   transition: 0.25s;
 }
 .card:hover {
@@ -146,5 +159,28 @@ h5 {
   transition-timing-function: ease-out;
   transition-timing-function: cubic-bezier(0, 0, 0.58, 1);
   transition: 0.35s;
+}
+
+@media only screen and (max-width: 1200px) {
+  .card {
+    width: 200px;
+    margin: 15px;
+  }
+  h5 {
+    font-size: 0.9em;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .card {
+    width: 120px;
+    margin: 10px;
+  }
+  h5 {
+    font-size: 0.8em;
+  }
+  .card-section {
+    padding: 0px;
+  }
 }
 </style>
