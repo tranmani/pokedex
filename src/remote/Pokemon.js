@@ -14,5 +14,11 @@ export default {
             method: 'get',
             url: `${endpoint}${name}`
         });
+    },
+    pokemonDetailByID(id) {
+        return AxiosClient({
+            method: 'get',
+            url: `${endpoint}${id}`
+        });
     }
 };

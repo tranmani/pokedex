@@ -1,84 +1,99 @@
 <template>
   <q-dialog v-model="card">
-    <q-card class="card" :class="bgGrad">
-      <div class="col">
-        <div class="row justify-center">
-          <q-img :src="currentPokemon.picture" style="width: 85%" class="col" />
-        </div>
-        <div class="row items-center justify-center">
-          <h3>{{ currentPokemon.name }} #{{ currentPokemon.id }}</h3>
-          <q-img :src="currentPokemon.sprite" class="sprite-img" />
-        </div>
-      </div>
-      <div class="row">
+    <q-slide-item class="q-slide" @left="onLeft" @right="onRight">
+      <template v-slot:left>
+        <q-icon name="arrow_back_ios" />
+      </template>
+      <template v-slot:right>
+        <q-icon name="arrow_forward_ios" />
+      </template>
+      <q-card class="card" :class="bgGrad">
         <div class="col">
-          <h5 class="row">Type</h5>
-          <q-chip
-            v-for="t in currentPokemon.type"
-            size="md"
-            :key="t"
-            :class="t.toLowerCase()"
-          >
-            {{ t }}
-          </q-chip>
+          <div class="row justify-center">
+            <q-img
+              :src="currentPokemon.picture"
+              style="width: 85%"
+              class="col"
+            />
+          </div>
+          <div class="row items-center justify-center">
+            <h3>{{ currentPokemon.name }} #{{ currentPokemon.id }}</h3>
+            <q-img :src="currentPokemon.sprite" class="sprite-img" />
+          </div>
         </div>
-        <div class="col">
-          <h5 class="row">Ability</h5>
-          <ul>
-            <li v-for="a in currentPokemon.ability" :key="a">
-              {{ a }}
-            </li>
-          </ul>
+        <div class="row">
+          <div class="col">
+            <h5 class="row">Type</h5>
+            <q-chip
+              v-for="t in currentPokemon.type"
+              size="md"
+              :key="t"
+              :class="t.toLowerCase()"
+            >
+              {{ t }}
+            </q-chip>
+          </div>
+          <div class="col">
+            <h5 class="row">Ability</h5>
+            <ul>
+              <li v-for="a in currentPokemon.ability" :key="a">
+                {{ a }}
+              </li>
+            </ul>
+          </div>
         </div>
-      </div>
 
-      <div class="row">
-        <div class="col">
-          <h5 class="row">Height</h5>
-          <p class="row">{{ currentPokemon.height }}</p>
+        <div class="row">
+          <div class="col">
+            <h5 class="row">Height</h5>
+            <p class="row">{{ currentPokemon.height }}</p>
+          </div>
+          <div class="col">
+            <h5 class="row">Weight</h5>
+            <p class="row">{{ currentPokemon.weight }}</p>
+          </div>
         </div>
-        <div class="col">
-          <h5 class="row">Weight</h5>
-          <p class="row">{{ currentPokemon.weight }}</p>
-        </div>
-      </div>
 
-      <div class="row btn-row">
-        <div class="col">
-          <q-btn
-            flat
-            v-if="currentPokemon.favorited"
-            class="btn"
-            icon="favorite"
-            color="red"
-            @click="removeFavorite"
-            >Favorite</q-btn
-          >
-          <q-btn
-            flat
-            v-if="!currentPokemon.favorited"
-            class="btn"
-            icon="favorite"
-            @click="favorite"
-            >Favorite</q-btn
-          >
+        <div class="row btn-row">
+          <div class="col">
+            <q-btn
+              flat
+              v-if="currentPokemon.favorited"
+              class="btn"
+              icon="favorite"
+              color="red"
+              @click="removeFavorite"
+              >Favorite</q-btn
+            >
+            <q-btn
+              flat
+              v-if="!currentPokemon.favorited"
+              class="btn"
+              icon="favorite"
+              @click="favorite"
+              >Favorite</q-btn
+            >
+          </div>
+          <div class="col">
+            <q-btn flat class="btn" icon="close" @click="updateCard"
+              >Close</q-btn
+            >
+          </div>
         </div>
-        <div class="col">
-          <q-btn flat class="btn" icon="close" @click="updateCard">Close</q-btn>
-        </div>
-      </div>
-    </q-card>
+      </q-card>
+    </q-slide-item>
   </q-dialog>
 </template>
 
 <script>
 import { mapGetters, mapActions } from "vuex";
+import Pokemon from "../remote/Pokemon";
 
 export default {
   name: "Created",
   props: {},
   computed: {
-    ...mapGetters("pokemon", ["currentPokemon", "card"]),
+    ...mapGetters("pokemon", ["currentPokemon", "card", "favorites"]),
     bgGrad() {
       const random = Math.floor(Math.random() * 8) + 1;
       switch (random) {
@@ -110,6 +125,7 @@ export default {
       "deleteFavorite",
       "updateCard",
       "updateCurrentPokemonFavorite",
+      "updateCurrentPokemon",
     ]),
     favorite() {
       this.addFavorite(this.currentPokemon.name);
@@ -119,9 +135,62 @@ export default {
       this.deleteFavorite(this.currentPokemon.name);
       this.updateCurrentPokemonFavorite(false);
     },
+    onLeft({ reset }) {
+      this.getPokemonByID(this.currentPokemon.id - 1);
+      this.timer = setTimeout(() => {
+        reset();
+      }, 1000);
+    },
+    onRight({ reset }) {
+      this.getPokemonByID(this.currentPokemon.id + 1);
+      this.timer = setTimeout(() => {
+        reset();
+      }, 1000);
+    },
+    getPokemonByID(id) {
+      const types = [];
+      const abilities = [];
+      let favorited = false;
+      Pokemon.pokemonDetailByID(id).then((response) => {
+        response.data.types.forEach((element) => {
+          types.push(
+            element.type.name.charAt(0).toUpperCase() +
+              element.type.name.slice(1)
+          );
+        });
+        response.data.abilities.forEach((element) => {
+          abilities.push(
+            element.ability.name.charAt(0).toUpperCase() +
+              element.ability.name.slice(1)
+          );
+        });
+
+        this.favorites.forEach((element) => {
+          if (element.toLowerCase() == response.data.name) {
+            favorited = true;
+          }
+        });
+
+        this.updateCurrentPokemon({
+          id: response.data.id,
+          name:
+            response.data.name.charAt(0).toUpperCase() +
+            response.data.name.slice(1),
+          type: types,
+          favorited: favorited,
+          picture: `https://pokeres.bastionbot.org/images/pokemon/${response.data.id}.png`,
+          ability: abilities,
+          height: response.data.height,
+          weight: response.data.weight,
+          sprite: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${response.data.id}.png`,
+        });
+      });
+    },
   },
   mounted() {},
-  beforeDestroy() {},
+  beforeDestroy() {
+    clearTimeout(this.timer);
+  },
 };
 </script>
 
@@ -137,8 +206,10 @@ h3 {
 p {
   font-size: 1.1em;
 }
-.card {
+.q-slide {
   width: 40%;
+}
+.card {
   padding: 25px;
 }
 .btn-row {
@@ -149,7 +220,7 @@ p {
 }
 
 @media only screen and (min-width: 1921px) {
-  .card {
+  .q-slide {
     width: 30%;
   }
   .sprite-img {
@@ -158,7 +229,7 @@ p {
 }
 
 @media only screen and (max-width: 1920px) {
-  .card {
+  .q-slide {
     width: 35%;
   }
   .sprite-img {
@@ -167,7 +238,7 @@ p {
 }
 
 @media only screen and (max-width: 1500px) {
-  .card {
+  .q-slide {
     width: 40%;
   }
   .sprite-img {
@@ -176,7 +247,7 @@ p {
 }
 
 @media only screen and (max-width: 1200px) {
-  .card {
+  .q-slide {
     width: 50%;
   }
   .sprite-img {
@@ -185,7 +256,7 @@ p {
 }
 
 @media only screen and (max-width: 900px) {
-  .card {
+  .q-slide {
     width: 60%;
   }
   .sprite-img {
@@ -194,7 +265,7 @@ p {
 }
 
 @media only screen and (max-width: 600px) {
-  .card {
+  .q-slide {
     width: 90%;
   }
   .sprite-img {

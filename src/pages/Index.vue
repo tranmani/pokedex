@@ -1,6 +1,7 @@
 <template>
   <q-page class="row justify-center">
     <q-btn
+      v-if="!currentPokemon.hasOwnProperty('name')"
       flat
       class="col-1 navi-btn"
       size="xl"
@@ -24,6 +25,7 @@
       </div>
     </div>
     <q-btn
+      v-if="!currentPokemon.hasOwnProperty('name')"
       flat
       class="col-1 navi-btn"
       size="xl"
@@ -61,11 +63,7 @@ export default {
       "currentPokemon",
     ]),
   },
-  watch: {
-    // currentOffset: function (newState, oldState) {
-    //   this.getPokemon(this.currentOffset, "undefined");
-    // },
-  },
+  watch: {},
   created() {
     this.getPokemon();
     this.onResize();

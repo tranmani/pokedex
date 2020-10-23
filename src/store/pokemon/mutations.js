@@ -7,6 +7,7 @@ export function updateCurrentOffset(state, payload) {
 }
 export function updateCard(state, payload) {
   state.card = !state.card
+  if (!state.card) state.currentPokemon = {}
 }
 export function updateCurrentPokemon(state, payload) {
   state.currentPokemon = payload

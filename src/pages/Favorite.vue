@@ -56,14 +56,14 @@ export default {
   created() {
     if (this.favorites.length == 0) this.loaded = true;
     else this.getPokemon(this.currentOffset);
+    this.onResize();
   },
   methods: {
     ...mapActions("pokemon", [
       "updateCurrentOffset",
-      "addFavorite",
-      "deleteFavorite",
       "addPokemon",
       "emptyPokemon",
+      "updateMobile",
     ]),
     getPokemon(offSet) {
       this.emptyPokemon();
@@ -106,6 +106,13 @@ export default {
           }
         });
       });
+    },
+    onResize() {
+      if (window.innerWidth <= 600) {
+        this.updateMobile("xs");
+      } else if (window.innerWidth <= 1200) {
+        this.updateMobile("md");
+      }
     },
   },
 };
