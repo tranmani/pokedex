@@ -111,7 +111,7 @@ module.exports = function (/* ctx */) {
       manifest: {
         name: `Pokemon Pokedex`,
         short_name: `Pokemon Pokedex`,
-        description: `A Quasar Framework app`,
+        description: `Pokedex`,
         display: 'standalone',
         orientation: 'portrait',
         background_color: '#ffffff',

@@ -150,6 +150,9 @@ h5 {
   transition-timing-function: cubic-bezier(0, 0, 0.58, 1);
   transition: 0.35s;
 }
+.card-section {
+  padding: 10px;
+}
 
 @media only screen and (max-width: 1200px) {
   .card {
@@ -158,6 +161,9 @@ h5 {
   }
   h5 {
     font-size: 0.9em;
+  }
+  .card-section {
+    padding: 5px;
   }
 }
 
