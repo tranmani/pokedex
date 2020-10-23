@@ -61,9 +61,14 @@ export default {
       "currentOffset",
       "favorites",
       "currentPokemon",
+      "search",
     ]),
   },
-  watch: {},
+  watch: {
+    search: function (newState, oldState) {
+      if (newState) this.searchDialog();
+    },
+  },
   created() {
     this.getPokemon();
     this.onResize();
@@ -77,6 +82,7 @@ export default {
       "addPokemon",
       "emptyPokemon",
       "updateMobile",
+      "updateSearch",
     ]),
     getPokemon(next) {
       this.emptyPokemon();
@@ -145,6 +151,25 @@ export default {
       } else if (window.innerWidth <= 1200) {
         this.updateMobile("md");
       }
+    },
+    searchDialog() {
+      this.$q
+        .dialog({
+          title: "Search pokemon by name or number",
+          prompt: {
+            model: "",
+            isValid: (val) => val.length > 0,
+          },
+          cancel: true,
+        })
+        .onOk((data) => {
+          this.$router.push({
+            path: `search?q=${data}`,
+          });
+        })
+        .onDismiss(() => {
+          this.updateSearch();
+        });
     },
   },
 };

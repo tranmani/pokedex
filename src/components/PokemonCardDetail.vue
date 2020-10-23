@@ -43,7 +43,7 @@
           </div>
         </div>
 
-        <div class="row">
+        <div class="row vertical-middle">
           <div class="col">
             <h5 class="row">Height</h5>
             <p class="row">{{ currentPokemon.height }}</p>
@@ -54,6 +54,7 @@
           </div>
         </div>
 
+        <p class="blink">SWIPE ME</p>
         <div class="row btn-row">
           <div class="col">
             <q-btn
@@ -139,13 +140,13 @@ export default {
       this.getPokemonByID(this.currentPokemon.id - 1);
       this.timer = setTimeout(() => {
         reset();
-      }, 1000);
+      }, 100);
     },
     onRight({ reset }) {
       this.getPokemonByID(this.currentPokemon.id + 1);
       this.timer = setTimeout(() => {
         reset();
-      }, 1000);
+      }, 100);
     },
     getPokemonByID(id) {
       const types = [];
@@ -206,17 +207,33 @@ h3 {
 p {
   font-size: 1.1em;
 }
+ul {
+  margin: 0px;
+}
 .q-slide {
   width: 40%;
+  overflow: visible;
 }
 .card {
   padding: 25px;
 }
 .btn-row {
-  padding-top: 25px;
+  padding-top: 0px;
 }
 .btn {
   width: 100%;
+}
+.blink {
+  color: #ffffff;
+  font-weight: bold;
+  text-align: center;
+  animation: blinker 2s linear infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0.5;
+  }
 }
 
 @media only screen and (min-width: 1921px) {

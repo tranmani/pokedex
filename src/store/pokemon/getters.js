@@ -14,6 +14,9 @@ export function favorites(state) {
 export function card(state) {
   return state.card
 }
+export function search(state) {
+  return state.search
+}
 export function currentPokemon(state) {
   return state.currentPokemon
 }

@@ -5,7 +5,8 @@ const routes = [
     component: () => import('layouts/MainLayout.vue'),
     children: [
       { path: '', component: () => import('pages/Index.vue') },
-      { path: 'favorite', component: () => import('pages/Favorite.vue') }
+      { path: 'favorite', component: () => import('pages/Favorite.vue') },
+      { path: 'search', component: () => import('pages/Search.vue'), props: (route) => ({ name: route.query.q }) },
     ]
   },
 

@@ -13,8 +13,11 @@ export function addPokemon({ commit }, payload) {
 export function emptyPokemon({ commit }) {
   commit('emptyPokemon')
 }
-export function updateCard({ commit }, payload) {
-  commit('updateCard', payload)
+export function updateCard({ commit }) {
+  commit('updateCard')
+}
+export function updateSearch({ commit }) {
+  commit('updateSearch')
 }
 export function updateCurrentPokemon({ commit }, payload) {
   commit('updateCurrentPokemon', payload)

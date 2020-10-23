@@ -5,9 +5,14 @@ const favorites = []
 export function updateCurrentOffset(state, payload) {
   state.currentOffset = payload
 }
-export function updateCard(state, payload) {
+export function updateCard(state) {
   state.card = !state.card
   if (!state.card) state.currentPokemon = {}
+}
+export function updateSearch(state) {
+  console.log("huy2");
+  console.log(state.search);
+  state.search = !state.search
 }
 export function updateCurrentPokemon(state, payload) {
   state.currentPokemon = payload

@@ -2,15 +2,15 @@
   <q-page>
     <div class="flex row justify-center q-pt-xl q-pb-xl items-start">
       <div v-if="!loaded" class="container justify-center row">
-        <PokemonCardSkeleton v-for="index in 20" :key="index" />
+        <PokemonCardSkeleton />
       </div>
-      <div v-if="loaded && noFavorite" class="absolute-center">
+      <div v-if="loaded && noResult" class="absolute-center">
         <h3>
-          There is no favorite pokemon yet <br />
-          Try to capture some ;)
+          There is no pokemon name or number<br />
+          matched your search :(
         </h3>
       </div>
-      <div v-if="loaded && !noFavorite" class="container justify-center row">
+      <div v-if="loaded && !noResult" class="container justify-center row">
         <PokemonCard
           v-for="pokemon in pokemons"
           :key="pokemon.id"
@@ -42,7 +42,7 @@ export default {
   data() {
     return {
       loaded: false,
-      noFavorite: true,
+      noResult: false,
     };
   },
   computed: {
@@ -60,26 +60,27 @@ export default {
     },
   },
   created() {
-    if (this.favorites.length == 0) this.loaded = true;
-    else this.getPokemon(this.currentOffset);
+    // if (this.favorites.length == 0) this.loaded = true;
+    // else this.getPokemon(this.currentOffset);
+    console.log(this.$route.query.q);
+    this.getPokemonbyName(this.$route.query.q);
     this.onResize();
   },
   methods: {
     ...mapActions("pokemon", [
-      "updateCurrentOffset",
       "addPokemon",
       "emptyPokemon",
       "updateMobile",
       "updateSearch",
     ]),
-    getPokemon(offSet) {
+    getPokemonbyName(name) {
+      this.loaded = false;
       this.emptyPokemon();
-      let id = 0;
-      this.favorites.forEach((element) => {
-        const types = [];
-        const abilities = [];
-        let favorited = false;
-        Pokemon.pokemonDetailByName(element.toLowerCase()).then((response) => {
+      const types = [];
+      const abilities = [];
+      let favorited = false;
+      Pokemon.pokemonDetailByName(name.toLowerCase())
+        .then((response) => {
           response.data.types.forEach((element) => {
             types.push(element.type.name);
           });
@@ -106,13 +107,15 @@ export default {
             weight: response.data.weight,
             sprite: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${response.data.id}.png`,
           });
-          id += 1;
-          if (this.favorites.length == id) {
+          this.loaded = true;
+          this.noResult = false;
+        })
+        .catch((error) => {
+          if (error.response) {
             this.loaded = true;
-            this.noFavorite = false;
+            this.noResult = true;
           }
         });
-      });
     },
     onResize() {
       if (window.innerWidth <= 600) {
@@ -132,9 +135,7 @@ export default {
           cancel: true,
         })
         .onOk((data) => {
-          this.$router.push({
-            path: `search?q=${data}`,
-          });
+          this.getPokemonbyName(data);
         })
         .onDismiss(() => {
           this.updateSearch();

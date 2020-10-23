@@ -12,6 +12,7 @@ export default function () {
     currentOffset: 0,
     favorites: favorites,
     card: false,
+    search: false,
     currentPokemon: {},
     mobile: "14px"
   }
