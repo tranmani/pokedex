@@ -5,7 +5,10 @@
         <PokemonCardSkeleton v-for="index in 20" :key="index" />
       </div>
       <div v-if="loaded && noFavorite" class="absolute-center">
-        <h3>There is no favorite pokemon yet, try to capture some ;)</h3>
+        <h3>
+          There is no favorite pokemon yet <br />
+          Try to capture some ;)
+        </h3>
       </div>
       <div
         v-if="loaded && !noFavorite"
