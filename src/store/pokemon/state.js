@@ -1,6 +1,6 @@
 import { LocalStorage } from 'quasar'
 const favorites = []
-LocalStorage.set(favorites, ["bulbasaur"])
+LocalStorage.set(favorites, [])
 
 export default function () {
 
