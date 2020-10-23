@@ -7,7 +7,7 @@
         </div>
         <div class="row items-center justify-center">
           <h3>{{ currentPokemon.name }} #{{ currentPokemon.id }}</h3>
-          <q-img :src="currentPokemon.sprite" style="width: 15%" />
+          <q-img :src="currentPokemon.sprite" class="sprite-img" />
         </div>
       </div>
       <div class="row">
@@ -152,23 +152,53 @@ p {
   .card {
     width: 30%;
   }
+  .sprite-img {
+    width: 15%;
+  }
 }
 
 @media only screen and (max-width: 1920px) {
   .card {
     width: 35%;
   }
+  .sprite-img {
+    width: 15%;
+  }
+}
+
+@media only screen and (max-width: 1500px) {
+  .card {
+    width: 40%;
+  }
+  .sprite-img {
+    width: 18%;
+  }
 }
 
 @media only screen and (max-width: 1200px) {
   .card {
+    width: 50%;
+  }
+  .sprite-img {
+    width: 19%;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .card {
     width: 60%;
+  }
+  .sprite-img {
+    width: 20%;
   }
 }
 
 @media only screen and (max-width: 600px) {
   .card {
-    width: 85%;
+    width: 90%;
+  }
+  .sprite-img {
+    width: 22%;
   }
 }
 </style>
