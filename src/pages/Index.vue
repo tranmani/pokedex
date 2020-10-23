@@ -68,6 +68,8 @@ export default {
   },
   created() {
     this.getPokemon();
+    this.onResize();
+    window.addEventListener("resize", this.onResize);
   },
   methods: {
     ...mapActions("pokemon", [
@@ -76,6 +78,7 @@ export default {
       "deleteFavorite",
       "addPokemon",
       "emptyPokemon",
+      "updateMobile",
     ]),
     getPokemon(next) {
       this.emptyPokemon();
@@ -105,13 +108,11 @@ export default {
               );
             });
 
-            if (this.favorites.length > 0) {
-              this.favorites.forEach((element) => {
-                if (element.toLowerCase() == response2.data.name) {
-                  favorited = true;
-                }
-              });
-            }
+            this.favorites.forEach((element) => {
+              if (element.toLowerCase() == response2.data.name) {
+                favorited = true;
+              }
+            });
 
             this.addPokemon({
               id: response2.data.id,
@@ -139,6 +140,13 @@ export default {
     },
     previousPage() {
       this.getPokemon("previous");
+    },
+    onResize() {
+      if (window.innerWidth <= 600) {
+        this.updateMobile("xs");
+      } else if (window.innerWidth <= 1200) {
+        this.updateMobile("md");
+      }
     },
   },
 };

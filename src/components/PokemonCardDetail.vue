@@ -26,7 +26,7 @@
           <h5 class="row">Ability</h5>
           <ul>
             <li v-for="a in currentPokemon.ability" :key="a">
-              <p>{{ a }}</p>
+              {{ a }}
             </li>
           </ul>
         </div>

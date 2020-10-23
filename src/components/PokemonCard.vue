@@ -86,7 +86,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters("pokemon", ["pokemons", "card", "mobile"]),
+    ...mapGetters("pokemon", ["card", "mobile"]),
   },
   data() {
     return {};
@@ -97,7 +97,6 @@ export default {
       "deleteFavorite",
       "updateCard",
       "updateCurrentPokemon",
-      "updateMobile",
     ]),
     favorite() {
       this.addFavorite(this.name);
@@ -119,17 +118,8 @@ export default {
       });
       this.updateCard();
     },
-    onResize() {
-      if (window.innerWidth <= 600) {
-        this.updateMobile("xs");
-      } else if (window.innerWidth <= 1200) {
-        this.updateMobile("md");
-      }
-    },
   },
-  created() {
-    window.addEventListener("resize", this.onResize);
-  },
+  created() {},
   beforeDestroy() {},
 };
 </script>
