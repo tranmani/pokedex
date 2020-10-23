@@ -60,9 +60,6 @@ export default {
     },
   },
   created() {
-    // if (this.favorites.length == 0) this.loaded = true;
-    // else this.getPokemon(this.currentOffset);
-    console.log(this.$route.query.q);
     this.getPokemonbyName(this.$route.query.q);
     this.onResize();
   },

@@ -23,34 +23,34 @@
         </div>
         <div class="row">
           <div class="col">
-            <h5 class="row">Type</h5>
-            <q-chip
-              v-for="t in currentPokemon.type"
-              size="md"
-              :key="t"
-              :class="t.toLowerCase()"
-            >
-              {{ t }}
-            </q-chip>
+            <h5 class="row justify-center">Type</h5>
+            <div class="justify-center row">
+              <q-chip
+                v-for="t in currentPokemon.type"
+                size="md"
+                :key="t"
+                :class="t.toLowerCase()"
+              >
+                {{ t }}
+              </q-chip>
+            </div>
           </div>
           <div class="col">
-            <h5 class="row">Ability</h5>
-            <ul>
-              <li v-for="a in currentPokemon.ability" :key="a">
-                {{ a }}
-              </li>
-            </ul>
+            <h5 class="row justify-center">Ability</h5>
+            <p class="ability" v-for="a in currentPokemon.ability" :key="a">
+              {{ a }}
+            </p>
           </div>
         </div>
 
-        <div class="row vertical-middle">
+        <div class="row">
           <div class="col">
-            <h5 class="row">Height</h5>
-            <p class="row">{{ currentPokemon.height }}</p>
+            <h5 class="row justify-center">Height</h5>
+            <p class="row justify-center">{{ currentPokemon.height }}</p>
           </div>
           <div class="col">
-            <h5 class="row">Weight</h5>
-            <p class="row">{{ currentPokemon.weight }}</p>
+            <h5 class="row justify-center">Weight</h5>
+            <p class="row justify-center">{{ currentPokemon.weight }}</p>
           </div>
         </div>
 
@@ -197,7 +197,7 @@ export default {
 
 <style scoped>
 h5 {
-  margin: 0px;
+  margin: 10px 0 0 0;
   text-align: center;
 }
 h3 {
@@ -228,6 +228,10 @@ ul {
   font-weight: bold;
   text-align: center;
   animation: blinker 2s linear infinite;
+}
+.ability {
+  margin: 0px;
+  text-align: center;
 }
 
 @keyframes blinker {

@@ -3,41 +3,69 @@
     <q-header elevated>
       <q-toolbar>
         <q-toolbar-title> Pokédex </q-toolbar-title>
+        <div v-if="mobile != `xs`">
+          <q-btn
+            style="color: white"
+            flat
+            dense
+            v-ripple.early
+            icon="home"
+            class="q-mr-md q-pa-xs"
+            to="/"
+            >Home</q-btn
+          >
+          <q-btn
+            style="color: white"
+            flat
+            dense
+            v-ripple.early
+            icon="favorite"
+            class="q-mr-md q-pa-xs"
+            to="/favorite"
+            label="Favorites"
+            ><q-badge color="red" floating>{{
+              favorites.length
+            }}</q-badge></q-btn
+          >
 
-        <q-btn
-          style="color: white"
-          flat
-          dense
-          v-ripple.early
-          icon="home"
-          class="q-mr-md q-pa-xs"
-          to="/"
-          >Home</q-btn
-        >
-        <q-btn
-          style="color: white"
-          flat
-          dense
-          v-ripple.early
-          icon="favorite"
-          class="q-mr-md q-pa-xs"
-          to="/favorite"
-          label="Favorites"
-          ><q-badge color="red" floating>{{ favorites.length }}</q-badge></q-btn
-        >
-
-        <q-btn
-          style="color: white"
-          flat
-          dense
-          v-ripple.early
-          icon="search"
-          class="q-mr-xl q-pa-xs"
-          @click="openSearchDialog"
-          >Search</q-btn
-        >
+          <q-btn
+            style="color: white"
+            flat
+            dense
+            v-ripple.early
+            icon="search"
+            class="q-mr-xl q-pa-xs"
+            @click="openSearchDialog"
+            >Search</q-btn
+          >
+        </div>
       </q-toolbar>
     </q-header>
+
+    <q-footer v-if="mobile == `xs`">
+      <q-tabs
+        v-model="tab"
+        inline-label
+        switch-indicator
+        class="bg-primary text-white"
+      >
+        <q-route-tab name="home" icon="home" label="Home" to="/"> </q-route-tab>
+        <q-route-tab
+          name="favorite"
+          icon="favorite"
+          label="Favorite"
+          to="/favorite"
+        >
+          <q-badge color="red" floating>{{ favorites.length }}</q-badge>
+        </q-route-tab>
+        <q-tab
+          name="search"
+          icon="search"
+          label="Search"
+          @click="openSearchDialog"
+        />
+      </q-tabs>
+    </q-footer>
 
     <q-page-container>
       <router-view />
@@ -52,15 +80,14 @@ export default {
   name: "MainLayout",
   components: {},
   data() {
-    return {};
+    return { tab: "home" };
   },
   computed: {
-    ...mapGetters("pokemon", ["favorites"]),
+    ...mapGetters("pokemon", ["favorites", "mobile"]),
   },
   methods: {
     ...mapActions("pokemon", ["updateSearch"]),
     openSearchDialog() {
-      console.log("huy");
       this.updateSearch();
     },
   },

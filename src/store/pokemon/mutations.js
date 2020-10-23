@@ -10,8 +10,6 @@ export function updateCard(state) {
   if (!state.card) state.currentPokemon = {}
 }
 export function updateSearch(state) {
-  console.log("huy2");
-  console.log(state.search);
   state.search = !state.search
 }
 export function updateCurrentPokemon(state, payload) {

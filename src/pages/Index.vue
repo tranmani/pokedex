@@ -8,7 +8,10 @@
       icon="arrow_back_ios"
       @click="previousPage"
     ></q-btn>
-    <div class="flex col-10 justify-center q-pt-xl q-pb-xl items-start">
+    <div
+      class="flex col-10 justify-center items-start"
+      :class="paddingTopBottomMobile"
+    >
       <div v-if="!loaded" class="container justify-center row">
         <PokemonCardSkeleton class="card" v-for="index in 20" :key="index" />
       </div>
@@ -62,7 +65,12 @@ export default {
       "favorites",
       "currentPokemon",
       "search",
+      "mobile",
     ]),
+    paddingTopBottomMobile() {
+      if (this.mobile == "xs" || this.mobile == "md") return "q-pt-md q-pb-md";
+      else return "q-pt-xl q-pb-xl";
+    },
   },
   watch: {
     search: function (newState, oldState) {
