@@ -18,7 +18,7 @@
       <div v-if="loaded" class="container justify-center row card">
         <PokemonCard
           class="card"
-          v-for="pokemon in pokemons"
+          v-for="pokemon in displayPokemons"
           :key="pokemon.id"
           v-bind="pokemon"
         />
@@ -45,7 +45,7 @@ import PokemonCardDetail from "../components/PokemonCardDetail";
 import PokemonCardSkeleton from "../components/PokemonCardSkeleton";
 import Page from "../remote/Page";
 import Pokemon from "../remote/Pokemon";
-
+import { LocalStorage } from "quasar";
 export default {
   name: "PageIndex",
   components: {
@@ -56,11 +56,13 @@ export default {
   data() {
     return {
       loaded: false,
+      existed: true,
     };
   },
   computed: {
     ...mapGetters("pokemon", [
       "pokemons",
+      "displayPokemons",
       "currentOffset",
       "favorites",
       "currentPokemon",
@@ -78,7 +80,11 @@ export default {
     },
   },
   created() {
-    this.getPokemon();
+    if (this.pokemons.length == 0) {
+      this.getPokemon();
+    } else {
+      this.copyPokemon();
+    }
     this.onResize();
     window.addEventListener("resize", this.onResize);
   },
@@ -89,23 +95,42 @@ export default {
       "deleteFavorite",
       "addPokemon",
       "emptyPokemon",
+      "addDisplayPokemonByOffset",
+      "emptyDisplayPokemon",
       "updateMobile",
       "updateSearch",
     ]),
     getPokemon(next) {
-      this.emptyPokemon();
-
-      if (next == "next") this.updateCurrentOffset(this.currentOffset + 50);
-      else if (next == "previous")
+      this.loaded = false;
+      let nextID = 1;
+      if (next == "next") {
+        this.updateCurrentOffset(this.currentOffset + 50);
+        nextID = this.displayPokemons[this.displayPokemons.length - 1].id + 1;
+      } else if (next == "previous") {
         this.updateCurrentOffset(this.currentOffset - 50);
-      else this.updateCurrentOffset(this.currentOffset);
+        if (this.displayPokemons[0].id - 1 == 0) nextID = 1;
+        else nextID = this.displayPokemons[0].id - 1;
+      } else this.updateCurrentOffset(this.currentOffset);
 
+      Pokemon.pokemonDetailByID(nextID)
+        .then((response) => {
+          const existed = this.pokemons.some(
+            (element) => element.name.toLowerCase() == response.data.name
+          );
+          if (!existed) this.getPokemonFromAPI();
+          else this.copyPokemon();
+        })
+        .catch((error) => {});
+    },
+    getPokemonFromAPI() {
       Page.nextPrevious(this.currentOffset).then((response) => {
         let id = 1;
+
         response.data.results.forEach((element) => {
           const types = [];
           const abilities = [];
           let favorited = false;
+
           Pokemon.pokemonDetailByLink(element.url).then((response2) => {
             response2.data.types.forEach((element) => {
               types.push(
@@ -141,11 +166,17 @@ export default {
             });
             id++;
             if (id == response.data.results.length) {
+              this.copyPokemon();
               this.loaded = true;
             }
           });
         });
       });
+    },
+    copyPokemon() {
+      this.emptyDisplayPokemon();
+      this.addDisplayPokemonByOffset(this.currentOffset);
+      this.loaded = true;
     },
     nextPage() {
       this.getPokemon("next");

@@ -13,6 +13,15 @@ export function addPokemon({ commit }, payload) {
 export function emptyPokemon({ commit }) {
   commit('emptyPokemon')
 }
+export function addDisplayPokemonByOffset({ commit }, payload) {
+  commit('addDisplayPokemonByOffset', payload)
+}
+export function addDisplayPokemonByPokemon({ commit }, payload) {
+  commit('addDisplayPokemonByPokemon', payload)
+}
+export function emptyDisplayPokemon({ commit }) {
+  commit('emptyDisplayPokemon')
+}
 export function updateCard({ commit }) {
   commit('updateCard')
 }

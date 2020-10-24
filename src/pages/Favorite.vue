@@ -15,7 +15,7 @@
       </div>
       <div v-if="loaded && !noFavorite" class="container justify-center row">
         <PokemonCard
-          v-for="pokemon in pokemons"
+          v-for="pokemon in displayPokemons"
           :key="pokemon.id"
           v-bind="pokemon"
         />
@@ -51,6 +51,7 @@ export default {
   computed: {
     ...mapGetters("pokemon", [
       "pokemons",
+      "displayPokemons",
       "currentOffset",
       "favorites",
       "currentPokemon",
@@ -77,11 +78,13 @@ export default {
       "updateCurrentOffset",
       "addPokemon",
       "emptyPokemon",
+      "addDisplayPokemonByPokemon",
+      "emptyDisplayPokemon",
       "updateMobile",
       "updateSearch",
     ]),
     getPokemon(offSet) {
-      this.emptyPokemon();
+      this.emptyDisplayPokemon();
       let id = 0;
       this.favorites.forEach((element) => {
         const types = [];
@@ -101,7 +104,7 @@ export default {
             }
           });
 
-          this.addPokemon({
+          this.addDisplayPokemonByPokemon({
             id: response.data.id,
             name:
               response.data.name.charAt(0).toUpperCase() +

@@ -2,7 +2,9 @@
   <q-layout view="lHh Lpr lFf">
     <q-header elevated>
       <q-toolbar>
-        <q-toolbar-title> Pokédex </q-toolbar-title>
+        <q-toolbar-title :style="mobile == `xs` ? `text-align: center` : ``">
+          Pokédex
+        </q-toolbar-title>
         <div v-if="mobile != `xs`">
           <q-btn
             style="color: white"
@@ -42,8 +44,9 @@
       </q-toolbar>
     </q-header>
 
-    <q-footer v-if="mobile == `xs`">
+    <q-footer>
       <q-tabs
+        v-if="mobile == `xs`"
         v-model="tab"
         inline-label
         switch-indicator

@@ -1,14 +1,19 @@
 import { LocalStorage } from 'quasar'
 let favorites = []
+let pokemons = []
 
-if (LocalStorage.has(favorites)) {
-  favorites = LocalStorage.getItem(favorites)
+if (LocalStorage.has('favorites')) {
+  favorites = LocalStorage.getItem('favorites')
+}
+if (LocalStorage.has('pokemons')) {
+  pokemons = LocalStorage.getItem('pokemons')
 }
 
 export default function () {
 
   return {
-    pokemons: [],
+    pokemons: pokemons,
+    displayPokemons: [],
     currentOffset: 0,
     favorites: favorites,
     card: false,
