@@ -5,7 +5,9 @@
         <q-item-section>
           <span
             >Build with ❤️ by
-            <a href="http://tranmani.com" target="_blank">tranmani</a></span
+            <a href="http://tranmani.com/?ref=pokedex" target="_blank"
+              >tranmani</a
+            ></span
           ></q-item-section
         >
       </q-item>

@@ -109,9 +109,9 @@ module.exports = function (/* ctx */) {
       workboxPluginMode: 'GenerateSW', // 'GenerateSW' or 'InjectManifest'
       workboxOptions: {}, // only for GenerateSW
       manifest: {
-        name: `Pokemon Pokedex`,
-        short_name: `Pokemon Pokedex`,
-        description: `Pokedex`,
+        name: `Pokédex`,
+        short_name: `Pokédex`,
+        description: `View information about Pokemons and manage your favorite Pokemon`,
         display: 'standalone',
         orientation: 'portrait',
         background_color: '#ffffff',
