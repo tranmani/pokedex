@@ -1,22 +1,20 @@
 # Pokedex
 
-Just another Pokedex build on Vue.js, Quasar Framework with API from PokéAPI and picture from bastionbot.org
+- Just another Pokedex build on Vue.js, Quasar Framework with API from PokéAPI and picture from bastionbot.org
+- Live demo at: https://pokedex.tranmani.com/
 
-## Install the dependencies
+### If you want to build on your computer:
 ```bash
+git clone https://github.com/tranmani/pokedex.git
+
+cd pokedex
+
 npm install
-```
 
-### Start the app in development mode (hot-code reloading, error reporting, etc.)
-```bash
 quasar dev
 ```
-
 
 ### Build the app for production
 ```bash
 quasar build
 ```
-
-### Customize the configuration
-See [Configuring quasar.conf.js](https://quasar.dev/quasar-cli/quasar-conf-js).
