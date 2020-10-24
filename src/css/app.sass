@@ -1,12 +1,20 @@
 // app global css in Sass form
 
-.btn-favorite
-  animation: spin 0.5s
+body
+  font-family: 'Roboto Slab', serif
 
-@keyframes spin
+.btn-favorite
+  animation: beat 0.5s
+
+@keyframes beat
   100%
     -webkit-transform: scale(1.6)
     transform: scale(1.6)
+
+.bg-dotted
+  background: linear-gradient(90deg,#f7fafc 18px,transparent 1%) 50%,linear-gradient(#f7fafc 18px,transparent 1%) 50%,$accent
+  background-size: 20px 20px
+  position: relative
 
 .bg-grad-1
   background-color: rgb(2, 0, 36)

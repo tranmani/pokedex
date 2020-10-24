@@ -1,13 +1,19 @@
 <template>
-  <q-page class="row justify-center">
+  <q-page class="row justify-center bg-dotted">
+    <RightClickMenu />
     <q-btn
       v-if="!currentPokemon.hasOwnProperty('name')"
       flat
       class="col-1 navi-btn"
       size="xl"
-      icon="arrow_back_ios"
+      :disable="this.currentOffset == 0"
       @click="previousPage"
-    ></q-btn>
+    >
+      <q-icon
+        name="arrow_back_ios"
+        :style="mobile == `xs` ? `right: -150%` : ``"
+      ></q-icon>
+    </q-btn>
     <div
       class="flex col-10 justify-center items-start"
       :class="paddingTopBottomMobile"
@@ -43,6 +49,7 @@ import { mapGetters, mapActions } from "vuex";
 import PokemonCard from "../components/PokemonCard";
 import PokemonCardDetail from "../components/PokemonCardDetail";
 import PokemonCardSkeleton from "../components/PokemonCardSkeleton";
+import RightClickMenu from "../components/RightClickMenu";
 import Page from "../remote/Page";
 import Pokemon from "../remote/Pokemon";
 import { LocalStorage } from "quasar";
@@ -52,6 +59,7 @@ export default {
     PokemonCard,
     PokemonCardSkeleton,
     PokemonCardDetail,
+    RightClickMenu,
   },
   data() {
     return {
@@ -222,5 +230,11 @@ export default {
   height: calc(100vh - 50px);
   position: sticky;
   top: 50px;
+}
+
+@media only screen and (max-width: 600px) {
+  .navi-btn {
+    bottom: 48px;
+  }
 }
 </style>

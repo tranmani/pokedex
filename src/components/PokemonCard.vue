@@ -4,7 +4,7 @@
       :src="picture"
       @click="openCard"
       class="img"
-      placeholder-src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+      placeholder-src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
     />
     <q-card-section class="card-section">
       <div class="row justify-between items-center">
@@ -160,7 +160,7 @@ h5 {
     margin: 15px;
   }
   h5 {
-    font-size: 0.9em;
+    font-size: 1.2em;
   }
   .card-section {
     padding: 5px;
@@ -173,7 +173,7 @@ h5 {
     margin: 10px;
   }
   h5 {
-    font-size: 0.8em;
+    font-size: 0.9em;
   }
   .card-section {
     padding: 0px;

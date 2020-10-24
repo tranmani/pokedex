@@ -1,5 +1,6 @@
 <template>
-  <q-page>
+  <q-page class="bg-dotted">
+    <RightClickMenu />
     <div
       class="flex row justify-center items-start"
       :class="paddingTopBottomMobile"
@@ -15,7 +16,7 @@
       </div>
       <div v-if="loaded && !noResult" class="container justify-center row">
         <PokemonCard
-          v-for="pokemon in pokemons"
+          v-for="pokemon in displayPokemons"
           :key="pokemon.id"
           v-bind="pokemon"
         />
@@ -32,6 +33,7 @@ import { mapGetters, mapActions } from "vuex";
 import PokemonCard from "../components/PokemonCard";
 import PokemonCardDetail from "../components/PokemonCardDetail";
 import PokemonCardSkeleton from "../components/PokemonCardSkeleton";
+import RightClickMenu from "../components/RightClickMenu";
 import Page from "../remote/Page";
 import Pokemon from "../remote/Pokemon";
 
@@ -41,6 +43,7 @@ export default {
     PokemonCard,
     PokemonCardSkeleton,
     PokemonCardDetail,
+    RightClickMenu,
   },
   data() {
     return {
@@ -50,7 +53,7 @@ export default {
   },
   computed: {
     ...mapGetters("pokemon", [
-      "pokemons",
+      "displayPokemons",
       "currentOffset",
       "favorites",
       "currentPokemon",
@@ -73,14 +76,14 @@ export default {
   },
   methods: {
     ...mapActions("pokemon", [
-      "addPokemon",
-      "emptyPokemon",
+      "addDisplayPokemonByPokemon",
+      "emptyDisplayPokemon",
       "updateMobile",
       "updateSearch",
     ]),
     getPokemonbyName(name) {
       this.loaded = false;
-      this.emptyPokemon();
+      this.emptyDisplayPokemon();
       const types = [];
       const abilities = [];
       let favorited = false;
@@ -99,7 +102,7 @@ export default {
             }
           });
 
-          this.addPokemon({
+          this.addDisplayPokemonByPokemon({
             id: response.data.id,
             name:
               response.data.name.charAt(0).toUpperCase() +

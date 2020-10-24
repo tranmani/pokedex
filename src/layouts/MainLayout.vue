@@ -1,5 +1,6 @@
 <template>
   <q-layout view="lHh Lpr lFf">
+    <RightClickMenu />
     <q-header elevated>
       <q-toolbar>
         <q-toolbar-title :style="mobile == `xs` ? `text-align: center` : ``">
@@ -50,6 +51,7 @@
         v-model="tab"
         inline-label
         switch-indicator
+        indicator-color="accent"
         class="bg-primary text-white"
       >
         <q-route-tab name="home" icon="home" label="Home" to="/"> </q-route-tab>
@@ -78,10 +80,13 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
+import RightClickMenu from "../components/RightClickMenu";
 
 export default {
   name: "MainLayout",
-  components: {},
+  components: {
+    RightClickMenu,
+  },
   data() {
     return { tab: "home" };
   },

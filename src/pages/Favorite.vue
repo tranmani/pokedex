@@ -1,5 +1,6 @@
 <template>
-  <q-page>
+  <q-page class="bg-dotted">
+    <RightClickMenu />
     <div
       class="flex row justify-center items-start"
       :class="paddingTopBottomMobile"
@@ -32,6 +33,7 @@ import { mapGetters, mapActions } from "vuex";
 import PokemonCard from "../components/PokemonCard";
 import PokemonCardDetail from "../components/PokemonCardDetail";
 import PokemonCardSkeleton from "../components/PokemonCardSkeleton";
+import RightClickMenu from "../components/RightClickMenu";
 import Page from "../remote/Page";
 import Pokemon from "../remote/Pokemon";
 
@@ -41,6 +43,7 @@ export default {
     PokemonCard,
     PokemonCardSkeleton,
     PokemonCardDetail,
+    RightClickMenu,
   },
   data() {
     return {
@@ -76,8 +79,6 @@ export default {
   methods: {
     ...mapActions("pokemon", [
       "updateCurrentOffset",
-      "addPokemon",
-      "emptyPokemon",
       "addDisplayPokemonByPokemon",
       "emptyDisplayPokemon",
       "updateMobile",

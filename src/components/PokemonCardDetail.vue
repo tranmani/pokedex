@@ -1,5 +1,6 @@
 <template>
   <q-dialog v-model="card">
+    <RightClickMenu />
     <q-slide-item class="q-slide" @left="onLeft" @right="onRight">
       <template v-slot:left>
         <q-icon name="arrow_back_ios" />
@@ -28,6 +29,7 @@
               <q-chip
                 v-for="t in currentPokemon.type"
                 size="md"
+                dense
                 :key="t"
                 :class="t.toLowerCase()"
               >
@@ -89,9 +91,13 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 import Pokemon from "../remote/Pokemon";
+import RightClickMenu from "../components/RightClickMenu";
 
 export default {
   name: "Created",
+  components: {
+    RightClickMenu,
+  },
   props: {},
   computed: {
     ...mapGetters("pokemon", ["currentPokemon", "card", "favorites"]),
