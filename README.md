@@ -1,6 +1,6 @@
-# WIP - Pokedex
+# Pokedex
 
-Just another Pokedex using Quasar Framework with API from PokéAPI and picture from bastionbot.org
+Just another Pokedex build on Vue.js, Quasar Framework with API from PokéAPI and picture from bastionbot.org
 
 ## Install the dependencies
 ```bash
