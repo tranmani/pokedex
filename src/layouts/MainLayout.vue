@@ -73,7 +73,9 @@
     </q-footer>
 
     <q-page-container>
-      <router-view />
+      <transition name="fade">
+        <router-view />
+      </transition>
     </q-page-container>
   </q-layout>
 </template>
@@ -85,19 +87,19 @@ import RightClickMenu from "../components/RightClickMenu";
 export default {
   name: "MainLayout",
   components: {
-    RightClickMenu,
+    RightClickMenu
   },
   data() {
     return { tab: "home" };
   },
   computed: {
-    ...mapGetters("pokemon", ["favorites", "mobile"]),
+    ...mapGetters("pokemon", ["favorites", "mobile"])
   },
   methods: {
     ...mapActions("pokemon", ["updateSearch"]),
     openSearchDialog() {
       this.updateSearch();
-    },
-  },
+    }
+  }
 };
 </script>
