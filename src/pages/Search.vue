@@ -43,12 +43,12 @@ export default {
     PokemonCard,
     PokemonCardSkeleton,
     PokemonCardDetail,
-    RightClickMenu,
+    RightClickMenu
   },
   data() {
     return {
       loaded: false,
-      noResult: false,
+      noResult: false
     };
   },
   computed: {
@@ -58,19 +58,20 @@ export default {
       "favorites",
       "currentPokemon",
       "search",
-      "mobile",
+      "mobile"
     ]),
     paddingTopBottomMobile() {
       if (this.mobile == "xs" || this.mobile == "md") return "q-pt-md q-pb-md";
       else return "q-pt-xl q-pb-xl";
-    },
+    }
   },
   watch: {
-    search: function (newState, oldState) {
+    search: function(newState, oldState) {
       if (newState) this.searchDialog();
-    },
+    }
   },
   created() {
+    this.$q.addressbarColor.set("#7AC89E");
     this.getPokemonbyName(this.$route.query.q);
     this.onResize();
   },
@@ -79,7 +80,7 @@ export default {
       "addDisplayPokemonByPokemon",
       "emptyDisplayPokemon",
       "updateMobile",
-      "updateSearch",
+      "updateSearch"
     ]),
     getPokemonbyName(name) {
       this.loaded = false;
@@ -88,15 +89,15 @@ export default {
       const abilities = [];
       let favorited = false;
       Pokemon.pokemonDetailByName(name.toLowerCase())
-        .then((response) => {
-          response.data.types.forEach((element) => {
+        .then(response => {
+          response.data.types.forEach(element => {
             types.push(element.type.name);
           });
-          response.data.abilities.forEach((element) => {
+          response.data.abilities.forEach(element => {
             abilities.push(element.ability.name);
           });
 
-          this.favorites.forEach((element) => {
+          this.favorites.forEach(element => {
             if (element.toLowerCase() == response.data.name) {
               favorited = true;
             }
@@ -113,12 +114,12 @@ export default {
             ability: abilities,
             height: response.data.height,
             weight: response.data.weight,
-            sprite: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${response.data.id}.png`,
+            sprite: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${response.data.id}.png`
           });
           this.loaded = true;
           this.noResult = false;
         })
-        .catch((error) => {
+        .catch(error => {
           if (error.response) {
             this.loaded = true;
             this.noResult = true;
@@ -138,18 +139,18 @@ export default {
           title: "Search pokemon by name or number",
           prompt: {
             model: "",
-            isValid: (val) => val.length > 0,
+            isValid: val => val.length > 0
           },
-          cancel: true,
+          cancel: true
         })
-        .onOk((data) => {
+        .onOk(data => {
           this.getPokemonbyName(data);
         })
         .onDismiss(() => {
           this.updateSearch();
         });
-    },
-  },
+    }
+  }
 };
 </script>
 

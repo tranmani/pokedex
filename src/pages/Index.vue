@@ -59,12 +59,12 @@ export default {
     PokemonCard,
     PokemonCardSkeleton,
     PokemonCardDetail,
-    RightClickMenu,
+    RightClickMenu
   },
   data() {
     return {
       loaded: false,
-      existed: true,
+      existed: true
     };
   },
   computed: {
@@ -75,19 +75,20 @@ export default {
       "favorites",
       "currentPokemon",
       "search",
-      "mobile",
+      "mobile"
     ]),
     paddingTopBottomMobile() {
       if (this.mobile == "xs" || this.mobile == "md") return "q-pt-md q-pb-md";
       else return "q-pt-xl q-pb-xl";
-    },
+    }
   },
   watch: {
-    search: function (newState, oldState) {
+    search: function(newState, oldState) {
       if (newState) this.searchDialog();
-    },
+    }
   },
   created() {
+    this.$q.addressbarColor.set("#7AC89E");
     if (this.pokemons.length == 0) {
       this.getPokemon();
     } else {
@@ -106,7 +107,7 @@ export default {
       "addDisplayPokemonByOffset",
       "emptyDisplayPokemon",
       "updateMobile",
-      "updateSearch",
+      "updateSearch"
     ]),
     getPokemon(next) {
       this.loaded = false;
@@ -121,39 +122,39 @@ export default {
       } else this.updateCurrentOffset(this.currentOffset);
 
       Pokemon.pokemonDetailByID(nextID)
-        .then((response) => {
+        .then(response => {
           const existed = this.pokemons.some(
-            (element) => element.name.toLowerCase() == response.data.name
+            element => element.name.toLowerCase() == response.data.name
           );
           if (!existed) this.getPokemonFromAPI();
           else this.copyPokemon();
         })
-        .catch((error) => {});
+        .catch(error => {});
     },
     getPokemonFromAPI() {
-      Page.nextPrevious(this.currentOffset).then((response) => {
+      Page.nextPrevious(this.currentOffset).then(response => {
         let id = 1;
 
-        response.data.results.forEach((element) => {
+        response.data.results.forEach(element => {
           const types = [];
           const abilities = [];
           let favorited = false;
 
-          Pokemon.pokemonDetailByLink(element.url).then((response2) => {
-            response2.data.types.forEach((element) => {
+          Pokemon.pokemonDetailByLink(element.url).then(response2 => {
+            response2.data.types.forEach(element => {
               types.push(
                 element.type.name.charAt(0).toUpperCase() +
                   element.type.name.slice(1)
               );
             });
-            response2.data.abilities.forEach((element) => {
+            response2.data.abilities.forEach(element => {
               abilities.push(
                 element.ability.name.charAt(0).toUpperCase() +
                   element.ability.name.slice(1)
               );
             });
 
-            this.favorites.forEach((element) => {
+            this.favorites.forEach(element => {
               if (element.toLowerCase() == response2.data.name) {
                 favorited = true;
               }
@@ -170,7 +171,7 @@ export default {
               ability: abilities,
               height: response2.data.height,
               weight: response2.data.weight,
-              sprite: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${response2.data.id}.png`,
+              sprite: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${response2.data.id}.png`
             });
             id++;
             if (id == response.data.results.length) {
@@ -205,20 +206,20 @@ export default {
           title: "Search pokemon by name or number",
           prompt: {
             model: "",
-            isValid: (val) => val.length > 0,
+            isValid: val => val.length > 0
           },
-          cancel: true,
+          cancel: true
         })
-        .onOk((data) => {
+        .onOk(data => {
           this.$router.push({
-            path: `search?q=${data}`,
+            path: `search?q=${data}`
           });
         })
         .onDismiss(() => {
           this.updateSearch();
         });
-    },
-  },
+    }
+  }
 };
 </script>
 
