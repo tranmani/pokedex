@@ -1,5 +1,5 @@
 <template>
-  <q-dialog v-model="card">
+  <q-dialog v-model="openCard">
     <RightClickMenu />
     <q-slide-item class="q-slide" @left="onLeft" @right="onRight">
       <template v-slot:left>
@@ -122,6 +122,14 @@ export default {
           return "bg-grad-8";
       }
     },
+    openCard: {
+      get () {
+        return this.card
+      },
+      set (val) {
+        this.updateCard()
+      }
+    }
   },
   data() {
     return {};
