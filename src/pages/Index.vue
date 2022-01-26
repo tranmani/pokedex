@@ -167,11 +167,11 @@ export default {
                 response2.data.name.slice(1),
               type: types,
               favorited: favorited,
-              picture: `https://pokeres.bastionbot.org/images/pokemon/${response2.data.id}.png`,
+              picture: `https://unpkg.com/pokeapi-sprites@2.0.4/sprites/pokemon/other/dream-world/${response.data.id}.svg`,
               ability: abilities,
               height: response2.data.height,
               weight: response2.data.weight,
-              sprite: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${response2.data.id}.png`
+              sprite: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/${response.data.id}.gif`,
             });
             id++;
             if (id == response.data.results.length) {
