@@ -10,11 +10,12 @@
       </template>
       <q-card class="card" :class="bgGrad">
         <div class="col">
-          <div class="row justify-center">
+          <div class="row justify-center sprite-container">
             <q-img
               :src="currentPokemon.picture"
-              style="width: 85%"
-              class="col"
+              width="100%"
+              height="100%"
+              contain
             />
           </div>
           <div class="row items-center justify-center">
@@ -246,6 +247,10 @@ ul {
 .ability {
   margin: 0px;
   text-align: center;
+}
+.sprite-container {
+  width: 500px;
+  height: 500px;
 }
 
 @keyframes blinker {

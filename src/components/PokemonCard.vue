@@ -1,11 +1,16 @@
 <template>
   <q-card color="gray" class="card">
-    <q-img
-      :src="picture"
-      @click="openCard"
-      class="img"
-      placeholder-src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
-    />
+    <div class="img-container">
+      <q-img
+        :src="picture"
+        @click="openCard"
+        class="img"
+        placeholder-src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+        contain
+        width="270px"
+        height="280px"
+      />
+    </div>
     <q-card-section class="card-section">
       <div class="row justify-between items-center">
         <h5 class="float-left" @click="openCard">
@@ -131,18 +136,26 @@ h5 {
 }
 .card {
   width: 280px;
+  height: 340px;
   padding: 5px;
   margin: 25px;
   transition: 0.25s;
+  position: relative;
 }
 .card:hover {
   box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   transition-timing-function: ease-out;
   transition: 0.25s;
 }
+.img-container {
+  /* width: 270px;
+  height: 280px; */
+}
 .img {
   cursor: pointer;
   transition: 0.2s;
+  /* width: 270px;
+  height: 280px; */
 }
 .img:hover {
   transform: scale(1.25);

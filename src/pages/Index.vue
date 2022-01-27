@@ -94,6 +94,7 @@ export default {
     } else {
       this.copyPokemon();
     }
+
     this.onResize();
     window.addEventListener("resize", this.onResize);
   },
@@ -167,11 +168,11 @@ export default {
                 response2.data.name.slice(1),
               type: types,
               favorited: favorited,
-              picture: `https://unpkg.com/pokeapi-sprites@2.0.4/sprites/pokemon/other/dream-world/${response.data.id}.svg`,
+              picture: `https://unpkg.com/pokeapi-sprites@2.0.4/sprites/pokemon/other/dream-world/${response2.data.id}.svg`,
               ability: abilities,
               height: response2.data.height,
               weight: response2.data.weight,
-              sprite: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/${response.data.id}.gif`,
+              sprite: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/${response2.data.id}.gif`,
             });
             id++;
             if (id == response.data.results.length) {
